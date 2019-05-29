@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-
+import os.path
 
 def parse_args():
     parser = ArgumentParser(description="")
@@ -10,4 +10,7 @@ def parse_args():
     parser.add_argument("--green-len", "-g", type=float, default=4, help="")
     parser.add_argument("--blue-len", "-b", type=float, default=5, help="")
     parser.add_argument("--min-dist", "-d", type=float, default=4, help="")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.output is None:
+        args.output = os.path.splitext(args.obj_file)[0] + '.svg'
+    return args

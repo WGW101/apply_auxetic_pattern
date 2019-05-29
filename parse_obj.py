@@ -25,4 +25,7 @@ def parse_file(file_path):
                 faces.append(tuple(int(v) - 1 for v in vs))
                 if len(others) == 1:
                     uv_faces.append(tuple(int(v) - 1 for v in others[0]))
+    if abs(max(vertex[2] for vertex in vertices)) < 0.0001:  # 2d object
+        uv_coords = [vertex[:2] for vertex in vertices]
+        uv_faces = faces.copy()
     return vertices, uv_coords, colors, groups, faces, uv_faces

@@ -3,6 +3,7 @@ from parse_obj import parse_file
 from topo import get_connected_faces, get_matching_edges, get_matching_vertices
 from pattern import get_pattern
 from cuts import get_cut_ratios
+from plot import plot_pattern
 
 if __name__ == "__main__":
     args = parse_args()
@@ -11,21 +12,27 @@ if __name__ == "__main__":
     print("Done! Model has {} vertices, {} faces in 3d space, {} coordinates and {} faces in UV space.".format(
         len(vs), len(fs), len(vts), len(fts)))
 
+    print("Identifying connected faces...", end=' ')
+    con = get_connected_faces(fs)
+    print("Done!")
+
+    print("Applying pattern...", end=' ')
+    pat, irregs = get_pattern(fs, con)
+    print("Done! Pattern was propagated on {} edges (encountered {} irregular face{}).".format(
+        len(pat), len(irregs) if len(irregs) > 1 else "no", "" if len(irregs) == 1 else "s"))
+
+    print("Computing cut lengths...", end=' ')
+    rs = get_cut_ratios(vs, cols, fs, con, pat, args.red_len, args.green_len, args.blue_len, args.min_dist)
+    print("Done!")
+
     if args.project_to is not None:
         print("Parsing file '{}'...".format(args.project_to), end=' ')
         pvs, vts, _, _, _, fts = parse_file(args.project_to)
         match_v = get_matching_vertices(vs, pvs)
         print("Done! Projected model has {} points and {} faces in UV space.".format(len(vts), len(fts)))
 
-    print("Identifying connected faces...", end=' ')
-    cons = get_connected_faces(fs)
-    print("Done!")
+    match = get_matching_edges(fs, fts)
 
-    print("Applying pattern...", end=' ')
-    pat, irregs = get_pattern(fs, cons)
-    print("Done! Pattern was propagated on {} edges (encountered {} irregular face{}).".format(
-        len(pat), len(irregs) if len(irregs) > 1 else "no", "" if len(irregs) == 1 else "s"))
-
-    print("Computing cut lengths...", end=' ')
-    rs = get_cut_ratios(vs, cols, fs, cons, pat, args.red_len, args.green_len, args.blue_len, args.min_dist)
-    print("Done!")
+    print("Plotting...", end=' ')
+    plot_pattern(args.output, vts, rs, con, match)
+    print("Done! SVG file saved as '{}'".format(args.output))
