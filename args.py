@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import os.path
 
+
 def parse_args():
     parser = ArgumentParser(description="")
     parser.add_argument("obj_file", help="")

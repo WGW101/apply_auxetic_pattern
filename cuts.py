@@ -7,6 +7,9 @@ def get_cut_ratios(vertices, colors, faces, connected, pattern, red_len, blue_le
     ratios = {}
     for (i, j) in pattern:
         vi, vj = vertices[i], vertices[j]
+        if sum(colors[j][1:]) < 50:
+            ratios[i, j] = 1.0
+            continue
         l = (colors[j][1] * red_len + colors[j][2] * green_len + colors[j][3] * blue_len) / 255
         for f in connected[undirected(i, j)]:
             a = cos_angle(vj, vi, vertices[get_opposing_vertex(faces[f], i, j)])
