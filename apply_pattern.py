@@ -21,17 +21,31 @@ if __name__ == "__main__":
     print("Done! Pattern was propagated on {} edges (encountered {} irregular face{}).".format(
         len(pat), len(irregs) if len(irregs) > 1 else "no", "" if len(irregs) == 1 else "s"))
 
+    if args.project_to is not None:
+        print("Parsing file '{}'...".format(args.project_to), end=' ')
+        pvs, vts, _, _, fs, fts = parse_file(args.project_to)
+        print("Done! Projected model has {} points and {} faces in UV space.".format(len(vts), len(fts)))
+
+        print("Matching vertices...", end=' ')
+        match_v = get_matching_vertices(vs, pvs)
+        vs = pvs
+        print("Done!")
+
+        print("Transposing pattern...", end=' ')
+        pat = {(match_v[i], match_v[j]) for i, j in pat}
+        print("Done!")
+
+        print("Updating connected faces...", end=' ')
+        con = get_connected_faces(fs)
+        print("Done!")
+
     print("Computing cut lengths...", end=' ')
     rs = get_cut_ratios(vs, cols, fs, con, pat, args.red_len, args.green_len, args.blue_len, args.min_dist)
     print("Done!")
 
-    if args.project_to is not None:
-        print("Parsing file '{}'...".format(args.project_to), end=' ')
-        pvs, vts, _, _, _, fts = parse_file(args.project_to)
-        match_v = get_matching_vertices(vs, pvs)
-        print("Done! Projected model has {} points and {} faces in UV space.".format(len(vts), len(fts)))
-
+    print("Matching edges from 3d space to uv plane", end=' ')
     match = get_matching_edges(fs, fts)
+    print("Done!")
 
     print("Plotting...", end=' ')
     plot_pattern(args.output, vts, rs, con, match)
