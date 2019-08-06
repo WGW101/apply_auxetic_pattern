@@ -9,7 +9,9 @@ def get_cut_ratios(vertices, colors, faces, connected, pattern, red_len, green_l
         vi, vj = vertices[i], vertices[j]
         d = dist(vi, vj)
         if colors:
-            l = d - (colors[j][1] * (d - red_len) + colors[j][2] * (d - green_len) + colors[j][3] * (d - blue_len)) / 255
+            l = d - (colors[j][1] * (d - red_len)
+                    + colors[j][2] * (d - green_len)
+                    + colors[j][3] * (d - blue_len)) / 255
         else:
             l = red_len
         for f in connected[undirected(i, j)]:

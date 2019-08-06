@@ -4,14 +4,10 @@ from geom import point_on_seg
 
 
 def plot_pattern(file_path, uv_coords, cut_ratios, connected, match):
-    u_offset = min(u for u, v in uv_coords)
-    v_offset = min(v for u, v in uv_coords)
-    width = max(u for u, v in uv_coords) - u_offset
-    height = max(v for u, v in uv_coords) - v_offset
-    draw = svgwrite.Drawing(file_path, (width, height), profile="tiny")
-    draw.viewbox(u_offset, v_offset, width, height)
-    pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=width / 300)
-    complem_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=width / 300)
+    draw = svgwrite.Drawing(file_path, (1000, 1000), profile="tiny")
+    draw.viewbox(0, 0, 1, 1)
+    pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.002)
+    complem_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.002)
     for (i, j), r in cut_ratios.items():
         for uv_i, uv_j in match[i, j]:
             coord_i, coord_j = uv_coords[uv_i], uv_coords[uv_j]
