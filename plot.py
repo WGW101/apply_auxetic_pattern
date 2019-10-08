@@ -3,8 +3,8 @@ from topo import undirected
 from geom import point_on_seg
 
 
-def plot_pattern(file_path, uv_coords, cut_ratios, connected, match):
-    draw = svgwrite.Drawing(file_path, (1000, 1000), profile="tiny")
+def plot_pattern(file_path, uv_coords, cut_ratios, connected, match, scale=100):
+    draw = svgwrite.Drawing(file_path, ("{}mm".format(scale), "{}mm".format(scale)), profile="tiny")
     draw.viewbox(0, 0, 1, 1)
     pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.002)
     complem_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.002)

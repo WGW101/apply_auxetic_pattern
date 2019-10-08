@@ -48,5 +48,5 @@ if __name__ == "__main__":
     print("Done!")
 
     print("Plotting...", end=' ')
-    plot_pattern(args.output, vts, rs, con, match)
+    plot_pattern(args.output, vts, rs, con, match, args.tile_scale)
     print("Done! SVG file saved as '{}'".format(args.output))

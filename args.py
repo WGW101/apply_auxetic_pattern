@@ -18,6 +18,8 @@ def parse_args():
                         help="Minimum material left on an edge with a vertex painted in blue")
     parser.add_argument("--min-dist", "-d", type=float, default=4,
                         help="Minimum orthogonal distance between the end of a cut and any adjacent edge")
+    parser.add_argument("--tile-scale", "-s", type=float, default=100,
+                        help="Scaling factor applied to uv projection to normalize uv coordinates between 0 and 1.")
     args = parser.parse_args()
     if args.output is None:
         args.output = os.path.splitext(args.obj_file)[0] + '.svg'
