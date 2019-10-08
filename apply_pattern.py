@@ -23,8 +23,9 @@ if __name__ == "__main__":
 
     if args.project_to is not None:
         print("Parsing file '{}'...".format(args.project_to), end=' ')
-        pvs, vts, _, _, fs, fts = parse_file(args.project_to)
-        print("Done! Projected model has {} points and {} faces in UV space.".format(len(vts), len(fts)))
+        pvs, vts, cols, gs, fs, fts = parse_file(args.project_to)
+        print("Done! Projection model has {} vertices, {} faces in 3d space,".format(len(pvs), len(fs))
+                + "{} coordinates and {} faces in UV space.".format(len(vts), len(fts)))
 
         print("Matching vertices...", end=' ')
         match_v = get_matching_vertices(vs, pvs)
