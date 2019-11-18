@@ -1,6 +1,5 @@
 import svgwrite
-from itertools import chain
-from topo import undirected, get_edges
+from topo import undirected, get_all_undirected_edges
 from geom import point_on_seg
 
 
@@ -10,7 +9,7 @@ def plot_pattern(file_path, uv_coords, uv_faces, cut_ratios, connected, match, s
     orig_g = draw.g(stroke=svgwrite.rgb(100, 100, 120), stroke_width=0.005)
     pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.005)
     complem_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.005)
-    for (i, j) in chain.from_iterable(get_edges(f) for f in uv_faces):
+    for (i, j) in get_all_undirected_edges(uv_faces):
         orig_g.add(draw.line(uv_coords[i], uv_coords[j]))
     for (i, j), r in cut_ratios.items():
         for uv_i, uv_j in match[i, j]:

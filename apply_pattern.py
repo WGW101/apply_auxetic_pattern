@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from args import parse_args
 from parse_obj import parse_file
 from topo import get_connected_faces, get_matching_edges, get_matching_vertices
