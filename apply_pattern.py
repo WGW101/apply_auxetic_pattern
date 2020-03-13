@@ -53,7 +53,6 @@ if __name__ == "__main__":
 
     print("Matching edges from 3d space to uv plane", end=' ')
     matching_edges = get_matching_edges(faces, uv_faces)
-    print(matching_edges)
     print("Done!")
 
     print("Plotting...", end=' ')
