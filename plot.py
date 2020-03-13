@@ -10,7 +10,7 @@ def plot_pattern(file_path, uv_coords, faces, uv_faces, cut_ratios, connected, m
     pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.005)
     complem_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.005)
 
-    for (i, j) in set(undirected(i, j) for i, j in chain.from_iterable(get_edges(f) for f in faces)):
+    for (i, j) in get_all_undirected_edges(faces):
         for uv_i, uv_j in match[i, j]:
             coord_i, coord_j = uv_coords[uv_i], uv_coords[uv_j]
             orig_g.add(draw.line(coord_i, coord_j))
