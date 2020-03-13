@@ -26,8 +26,10 @@ if __name__ == "__main__":
     if args.project_to is not None:
         print("Parsing file '{}'...".format(args.project_to), end=' ')
         project_vertices, uv_coords, colors, groups, faces, uv_faces = parse_file(args.project_to)
-        print("Done! Projection model has {} vertices, {} faces in 3d space,".format(len(project_vertices), len(faces))
-                + "{} coordinates and {} faces in UV space.".format(len(uv_coords), len(uv_faces)))
+        print("Done! Projection model has {} vertices, {} faces in 3d space,".format(
+                len(project_vertices), len(faces))
+            + "{} coordinates and {} faces in UV space.".format(
+                len(uv_coords), len(uv_faces)))
 
         print("Matching vertices...", end=' ')
         matching_vertices = get_matching_vertices(vertices, project_vertices)
@@ -49,8 +51,9 @@ if __name__ == "__main__":
 
     print("Matching edges from 3d space to uv plane", end=' ')
     matching_edges = get_matching_edges(faces, uv_faces)
+    print(matching_edges)
     print("Done!")
 
     print("Plotting...", end=' ')
-    plot_pattern(args.output, uv_coords, uv_faces, cut_ratios, connected_faces, matching_edges, args.tile_scale)
+    plot_pattern(args.output, uv_coords, faces, uv_faces, cut_ratios, connected_faces, matching_edges, args.tile_scale)
     print("Done! SVG file saved as '{}'".format(args.output))
