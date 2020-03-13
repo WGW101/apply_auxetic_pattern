@@ -9,6 +9,10 @@ def undirected(i, j):
     return (i, j) if i < j else (j, i)
 
 
+def get_all_undirected_edges(faces):
+    return set(undirected(i, j) for f in faces for i, j in get_edges(f))
+
+
 def get_opposing_vertex(face, i, j):
     for v in face:
         if v != i and v != j:
