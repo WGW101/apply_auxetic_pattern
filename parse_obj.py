@@ -1,3 +1,6 @@
+from u3d_properties import parse_properties
+
+
 def parse_file(file_path):
     vertices = []
     uv_coords = []
@@ -5,6 +8,7 @@ def parse_file(file_path):
     groups = []
     faces = []
     uv_faces = []
+    properties = None
     with open(file_path) as f:
         for line in f:
             line = line.strip()
@@ -25,7 +29,10 @@ def parse_file(file_path):
                 faces.append(tuple(int(v) - 1 for v in vs))
                 if len(others) == 1:
                     uv_faces.append(tuple(int(v) - 1 for v in others[0]))
+            elif key == '#U3DPROPERTIES_02':
+                values.reverse()
+                properties = parse_properties(values)
     if abs(max(vertex[2] for vertex in vertices)) < 0.0001:  # 2d object
         uv_coords = [vertex[:2] for vertex in vertices]
         uv_faces = faces.copy()
-    return vertices, uv_coords, colors, groups, faces, uv_faces
+    return vertices, uv_coords, colors, groups, faces, uv_faces, properties
