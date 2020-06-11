@@ -8,6 +8,8 @@ def parse_args():
                         help="Path to the input .obj file")
     parser.add_argument("--project-to", "-p",
                         help="Optional path to another .obj file to project to other uv coordinates")
+    parser.add_argument("--reverse",
+                        help="Reverse the directions of every edge, flipping the pattern")
     parser.add_argument("--output", "-o",
                         help="Output file name. Uses the input file name with .svg extension by default")
     parser.add_argument("--red-len", "-r", type=float, default=3,

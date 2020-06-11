@@ -38,3 +38,7 @@ def get_pattern(faces, connected, start_f=None):
                             pattern.add((v, j))
                             queue.append(f2)
     return pattern, irregs
+
+
+def reverse_pattern(pattern):
+    return {(j, i) for (i, j) in pattern}

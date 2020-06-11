@@ -3,7 +3,7 @@
 from args import parse_args
 from parse_obj import parse_file
 from topo import get_connected_faces, get_matching_edges, get_matching_vertices
-from pattern import get_pattern
+from pattern import get_pattern, reverse_pattern
 from cuts import get_cut_ratios
 from plot import plot_pattern
 
@@ -24,6 +24,11 @@ if __name__ == "__main__":
         len(pattern),
         len(irregular_faces) if len(irregular_faces) > 1 else "no",
         "" if len(irregular_faces) == 1 else "s"))
+    
+    if args.reverse:
+        print("Reversing edges in pattern...", end=' ')
+        pattern = reverse_pattern(pattern)
+        print("Done!")
 
     if args.project_to is not None:
         print("Parsing file '{}'...".format(args.project_to), end=' ')
