@@ -46,3 +46,14 @@ def get_matching_edges(faces, uv_faces):
 
 def get_matching_vertices(vertices, others):
     return [min((dist(vertex, other), v) for v, other in enumerate(others))[1] for vertex in vertices]
+
+
+def get_surrounding_faces(faces):
+    surround = {}
+    for f, face in enumerate(faces):
+        for v in face:
+            if v in surround:
+                surround[v].add(f)
+            else:
+                surround[v] = {f}
+    return surround

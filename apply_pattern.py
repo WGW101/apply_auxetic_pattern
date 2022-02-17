@@ -10,7 +10,7 @@ from plot import plot_pattern
 if __name__ == "__main__":
     args = parse_args()
     print("Parsing file '{}'...".format(args.obj_file), end=' ')
-    vertices, uv_coords, colors, groups, faces, uv_faces = parse_file(args.obj_file)
+    vertices, uv_coords, colors, groups, faces, uv_faces, properties = parse_file(args.obj_file)
     print("Done! Model has {} vertices, {} faces in 3d space, {} coordinates and {} faces in UV space.".format(
         len(vertices), len(faces), len(uv_coords), len(uv_faces)))
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     if args.project_to is not None:
         print("Parsing file '{}'...".format(args.project_to), end=' ')
-        project_vertices, uv_coords, colors, groups, faces, uv_faces = parse_file(args.project_to)
+        project_vertices, uv_coords, colors, groups, faces, uv_faces, properties = parse_file(args.project_to)
         print("Done! Projection model has {} vertices, {} faces in 3d space,".format(
                 len(project_vertices), len(faces))
             + "{} coordinates and {} faces in UV space.".format(
@@ -61,5 +61,6 @@ if __name__ == "__main__":
     print("Done!")
 
     print("Plotting...", end=' ')
-    plot_pattern(args.output, uv_coords, faces, uv_faces, cut_ratios, connected_faces, matching_edges, args.tile_scale)
+    plot_pattern(args.output, uv_coords, faces, uv_faces,
+                 cut_ratios, connected_faces, matching_edges, args.tile_scale)
     print("Done! SVG file saved as '{}'".format(args.output))
