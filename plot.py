@@ -4,12 +4,12 @@ from geom import point_on_seg
 
 
 def plot_pattern(file_path, uv_coords, faces, uv_faces, cut_ratios, connected, match, scale=100):
-    draw = svgwrite.Drawing(file_path, ("{}mm".format(scale), "{}mm".format(scale)), profile="tiny")
+    draw = svgwrite.Drawing(file_path, ("{}mm".format(scale), "{}mm".format(scale)), profile="full")
     draw.viewbox(0, 0, 1, 1)
-    orig_g = draw.g(stroke=svgwrite.rgb(100, 100, 120), stroke_width=0.005)
-    pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.005)
-    border_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.005)
-    inv_pat_g = draw.g(stroke=svgwrite.rgb(0, 255, 0), stroke_width=0.005)
+    orig_g = draw.g(stroke=svgwrite.rgb(100, 100, 120), stroke_width=0.001)
+    pat_g = draw.g(stroke=svgwrite.rgb(0, 0, 0), stroke_width=0.001)
+    border_g = draw.g(stroke=svgwrite.rgb(0, 0, 255), stroke_width=0.001)
+    inv_pat_g = draw.g(stroke=svgwrite.rgb(0, 255, 0), stroke_width=0.001)
 
     for (i, j) in get_all_undirected_edges(faces):
         for uv_i, uv_j in match[i, j]:
